@@ -1,40 +1,18 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { motion } from 'framer-motion';
 
 const QuizScreen = () => {
-    const [showModal, setShowModal] = useState(false);
-    const navigate = useNavigate();
-
-    const endQuiz = () => {
-        setShowModal(true);
-    };
-
-    const confirmEndQuiz = () => {
-        navigate('/');
-    };
-
-    const cancelEndQuiz = () => {
-        setShowModal(false);
-    };
-
-    const finishQuiz = () => {
-        navigate('/results');
-    };
-
     return (
-        <div className="quiz-screen">
+        <motion.div
+            className="quiz-screen"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            transition={{ duration: 0.5 }}
+        >
             <h2>Quiz Question</h2>
-            {/* Timer and other elements */}
-            <button onClick={endQuiz}>End Quiz</button>
-
-            {showModal && (
-                <div className="modal">
-                    <p>Are you sure you want to end the quiz?</p>
-                    <button onClick={cancelEndQuiz}>Cancel</button>
-                    <button onClick={confirmEndQuiz}>Confirm</button>
-                </div>
-            )}
-        </div>
+            <button>End Quiz</button>
+        </motion.div>
     );
 };
 
