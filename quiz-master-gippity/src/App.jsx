@@ -1,21 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import WelcomeScreen from './components/WelcomeScreen';
-import QuizScreen from './components/QuizScreen';
-import ResultScreen from './components/ResultScreen';
-import StatisticsScreen from './components/StatisticsScreen';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './store';
 import './App.css';
+import AppRouter from './AppRouter';
 
 function App() {
     return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<WelcomeScreen />} />
-                <Route path="/quiz" element={<QuizScreen />} />
-                <Route path="/results" element={<ResultScreen />} />
-                <Route path="/statistics" element={<StatisticsScreen />} />
-            </Routes>
-        </Router>
+        <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+                <AppRouter />
+            </PersistGate>
+        </Provider>
     );
 }
 
