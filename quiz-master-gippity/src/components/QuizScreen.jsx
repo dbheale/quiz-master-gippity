@@ -1,49 +1,39 @@
-import React from 'react';
-
-const mockQuestion = {
-    question: "What is the capital of France?",
-    type: "multiple", // could be "boolean" for true/false
-    options: ["Paris", "London", "Berlin", "Rome"],
-    correctAnswer: "Paris",
-    currentQuestion: 1,
-    totalQuestions: 5,
-    timeLimit: "1m"
-};
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const QuizScreen = () => {
-    const { question, type, options, currentQuestion, totalQuestions, timeLimit } = mockQuestion;
+    const [showModal, setShowModal] = useState(false);
+    const navigate = useNavigate();
+
+    const endQuiz = () => {
+        setShowModal(true);
+    };
+
+    const confirmEndQuiz = () => {
+        navigate('/');
+    };
+
+    const cancelEndQuiz = () => {
+        setShowModal(false);
+    };
+
+    const finishQuiz = () => {
+        navigate('/results');
+    };
 
     return (
         <div className="quiz-screen">
-            {/* Question text */}
-            <h2>{question}</h2>
+            <h2>Quiz Question</h2>
+            {/* Timer and other elements */}
+            <button onClick={endQuiz}>End Quiz</button>
 
-            {/* Progress bar (text-based for now) */}
-            <div className="progress">
-                Question {currentQuestion} of {totalQuestions}
-            </div>
-
-            {/* Timer */}
-            <div className="timer">
-                Time remaining: {timeLimit}
-            </div>
-
-            {/* Answer buttons */}
-            <div className="answers">
-                {type === "boolean" ? (
-                    <>
-                        <button>True</button>
-                        <button>False</button>
-                    </>
-                ) : (
-                    options.map((option, index) => (
-                        <button key={index}>{option}</button>
-                    ))
-                )}
-            </div>
-
-            {/* End quiz button */}
-            <button className="end-quiz">End Quiz</button>
+            {showModal && (
+                <div className="modal">
+                    <p>Are you sure you want to end the quiz?</p>
+                    <button onClick={cancelEndQuiz}>Cancel</button>
+                    <button onClick={confirmEndQuiz}>Confirm</button>
+                </div>
+            )}
         </div>
     );
 };
