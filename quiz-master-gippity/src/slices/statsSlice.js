@@ -13,20 +13,18 @@ const statsSlice = createSlice({
     initialState,
     reducers: {
         updateStats: (state, action) => {
-            const { questions, correct, category, difficulty, type } = action.payload;
+            const answers = action.payload;
 
-            // Update overall questions and correct answers
-            state.totalQuestions += questions;
-            state.totalCorrect += correct;
+            // Update total questions and correct answers
+            state.totalQuestions += answers.length;
+            state.totalCorrect += answers.filter(ans => ans.isCorrect).length;
 
-            // Update category stats
-            state.categoryStats[category] = (state.categoryStats[category] || 0) + questions;
-
-            // Update difficulty stats
-            state.difficultyStats[difficulty] = (state.difficultyStats[difficulty] || 0) + questions;
-
-            // Update type stats
-            state.typeStats[type] = (state.typeStats[type] || 0) + questions;
+            // Update category, difficulty, and type stats
+            answers.forEach(answer => {
+                state.categoryStats[answer.category] = (state.categoryStats[answer.category] || 0) + 1;
+                state.difficultyStats[answer.difficulty] = (state.difficultyStats[answer.difficulty] || 0) + 1;
+                state.typeStats[answer.type] = (state.typeStats[answer.type] || 0) + 1;
+            });
         },
     },
 });
