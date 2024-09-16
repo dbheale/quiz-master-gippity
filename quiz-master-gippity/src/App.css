@@ -82,3 +82,51 @@ button {
     background-color: #f44336;
     color: white;
 }
+
+.result-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+}
+
+h2 {
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.result {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+.quiz-config {
+    text-align: left;
+}
+
+.quiz-config p {
+    margin: 5px 0;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.restart-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.new-quiz-btn {
+    background-color: #2196F3;
+    color: white;
+}
